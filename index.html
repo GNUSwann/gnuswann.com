@@ -5,8 +5,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GNU/Swann</title>
+  <script defer>
+    function search() {
+      document.getElementById('sh').innerHTML = `
+      <iframe src="https://haveibeenpwned.com/unifiedsearch/${document.getElementById('ia').value}" frameborder="0"></iframe>
+      `
+    }
+
+    function change(json) {
+      json = JSON.parse(json)
+      final = '<br><br>'
+      json['Breaches'].forEach(element => {
+        final += `<li>${element.Name} :<ul>
+            <li>Titre : ${element.Title}</li>
+            <li>Nom de domaine : ${element.Domain}</li>
+            <li>Ajouté à la base de données : ${element.AddedDate}</li>
+            <li>Date de piratage : ${element.BreachDate}</li>
+            <li>Ce qui à été piraté : ${element.DataClasses}</li>
+            <li>Description : ${element.Description}</li></ul></li>`
+        console.log(element)
+      });
+      document.getElementById('pastd').innerHTML = final
+      console.log('es')
+    }
+  </script>
 </head>
 <body>
-  hey
+  <a href="https://vw.gnuswann.com/">Bit Warden</a>
+  <br><br><hr><br><br>
+  <input type="text" name="account" id="ia">
+  <input type="button" value="Search" onclick="search()">
+
+
+  <input type="text" name="account" id="past">
+  <input type="button" value="past" onclick="change(document.getElementById('past').value)">
+  <div id="pastd"></div>
+
+  <div id="sh"></div>
 </body>
 </html>
